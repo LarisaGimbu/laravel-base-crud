@@ -23,7 +23,7 @@
           <td>{{$comic->price}}</td>
           <td>
             <a class="btn-warning p-2 rounded" href=" {{route('comics.show', $comic)}} ">Show</a>
-            <a class="btn-danger p-2 rounded" href=" {{route('comics.create')}} ">Create</a>
+            <a class="btn-success p-2 rounded" href=" {{route('comics.edit', $comic)}} ">Edit</a>
           </td>
         </tr>
         @empty
@@ -32,6 +32,11 @@
         
       </tbody>
     </table>
+
+    <div class="create-container d-flex justify-content-end">
+      <a class="btn-primary p-2 rounded" href=" {{route('comics.create')}} ">Create new comic</a>
+    </div>
+   
 
     {{$comics->links()}}
   </div>

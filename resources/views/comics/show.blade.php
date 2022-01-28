@@ -14,6 +14,9 @@
           <li class="list-group-item">Type: {{$comic->type}} </li>
         </ul>
         <a href=" {{route('comics.index')}} " class="btn btn-primary">Go back</a>
+        
+        <a class="btn-success p-2 rounded" href=" {{route('comics.edit', $comic)}} ">Edit</a>
+        
       </div>
       <div class="card-footer text-muted">
         Sale date:
