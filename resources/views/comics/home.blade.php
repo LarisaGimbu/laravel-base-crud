@@ -21,7 +21,10 @@
           <td>{{$comic->title}}</td>
           <td>{{$comic->type}}</td>
           <td>{{$comic->price}}</td>
-          <td><a class="btn-warning p-2 rounded" href=" {{route('comics.show', $comic)}} ">Show</a></td>
+          <td>
+            <a class="btn-warning p-2 rounded" href=" {{route('comics.show', $comic)}} ">Show</a>
+            <a class="btn-danger p-2 rounded" href=" {{route('comics.create')}} ">Create</a>
+          </td>
         </tr>
         @empty
           <h3>Non sono stati trovati fumetti</h3>
