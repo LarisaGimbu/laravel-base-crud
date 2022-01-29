@@ -3,6 +3,7 @@
 use App\Comic;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Validation\Rules\Unique;
 
 class ComicsTableSeeder extends Seeder
 {
@@ -23,8 +24,25 @@ class ComicsTableSeeder extends Seeder
             $new_comic->series = $comic['series'];
             $new_comic->sale_date = $comic['sale_date'];
             $new_comic->type = $comic['type'];
-            $new_comic->slug = Str::slug($new_comic->title, '-');
+            $new_comic->slug = $this->getUniqueSlug($new_comic->title);
             $new_comic->save();
         }
+    }
+
+
+    private function getUniqueSlug($title)
+    {
+        $slug = Str::slug($title, '-');
+
+        $existingCount = Comic::where('slug', 'like', $slug)->count();
+
+        if($existingCount)
+        {
+          return $slug . '-' . ($existingCount);
+        }else{
+            return $slug;
+        }
+
+        
     }
 }
