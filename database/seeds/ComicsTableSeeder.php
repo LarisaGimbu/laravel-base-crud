@@ -32,16 +32,16 @@ class ComicsTableSeeder extends Seeder
 
     private function getUniqueSlug($title)
     {
+        
         $slug = Str::slug($title, '-');
+        
+        $count = 2;
+        while (Comic::where('slug', $slug)->exists()) {
 
-        $existingCount = Comic::where('slug', 'like', $slug)->count();
-
-        if($existingCount)
-        {
-          return $slug . '-' . ($existingCount);
-        }else{
-            return $slug;
+            $slug = $slug . '-' . $count++;
         }
+
+        return $slug;
 
         
     }
