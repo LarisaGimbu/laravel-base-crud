@@ -31,7 +31,7 @@
         placeholder="Title">
         
         @error('title')
-        <p>{{$message}}</p>
+        <p class="forms-errors">{{$message}}</p>
         @enderror
         
       </div>
@@ -45,7 +45,7 @@
         id="description">{{old('description')}}</textarea>
 
         @error('description')
-        <p>{{$message}}</p>
+        <p class="forms-errors">{{$message}}</p>
         @enderror
 
       </div>
@@ -61,7 +61,7 @@
         placeholder="Image url">
 
         @error('image')
-        <p>{{$message}}</p>
+        <p class="forms-errors">{{$message}}</p>
         @enderror
 
       </div>
@@ -78,7 +78,7 @@
         placeholder="Price">
 
         @error('price')
-        <p>{{$message}}</p>
+        <p class="forms-errors">{{$message}}</p>
         @enderror
 
       </div>
@@ -94,7 +94,7 @@
         placeholder="Series">
 
         @error('series')
-        <p>{{$message}}</p>
+        <p class="forms-errors">{{$message}}</p>
         @enderror
 
       </div>
@@ -110,7 +110,7 @@
         placeholder="Sale date">
 
         @error('sale_date')
-        <p>{{$message}}</p>
+        <p class="forms-errors">{{$message}}</p>
         @enderror
 
       </div>
@@ -126,7 +126,7 @@
         placeholder="Type">
 
         @error('type')
-        <p>{{$message}}</p>
+        <p class="forms-errors">{{$message}}</p>
         @enderror
 
       </div>
