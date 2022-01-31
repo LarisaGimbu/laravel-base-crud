@@ -3,6 +3,11 @@
 @section('content')
   <div class="container">
     <h1>Comics:</h1>
+    @if(session('deleted'))
+    <div class="alert alert-danger" role="alert">
+      {{session('deleted')}}
+    </div>
+    @endif
 
     <table class="table table-dark table-hover">
       <thead>
@@ -28,7 +33,7 @@
           </td>
           <td><a class="btn-success p-2 rounded d-flex align-items-center" href=" {{route('comics.edit', $comic)}} ">Edit</a></td>
           <td>
-            <form action=" {{route('comics.destroy', $comic)}}" method="POST">
+            <form action=" {{route('comics.destroy', $comic)}}" method="POST" onsubmit=" return confirm('Confermi di voler eliminare il fumetto {{$comic->title}} ?')">
               @csrf
               @method('DELETE')
               <button class="btn btn-danger p-2 rounded" type="submit">Delete</button>

@@ -15,7 +15,7 @@ class ComicController extends Controller
      */
     public function index()
     {
-        $comics = Comic::paginate(4);
+        $comics = Comic::orderBy('id', 'desc')->paginate(4);
 
         return view ('comics.home', compact('comics'));
     }
@@ -38,11 +38,13 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->validationData(), $this->validationErrors());
+
         $data = $request->all();
 
         $new_comic = new Comic();
         $new_comic->fill($data);
-        $new_comic->slug = Str::slug($new_comic->title, '-');
+        $new_comic->slug = $this->getUniqueSlug($new_comic->title);
         $new_comic->save();
 
         return redirect()->route('comics.show', $new_comic);
@@ -83,6 +85,8 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
+        $request->validate($this->validationData(), $this->validationErrors());
+
         $data = $request->all();
         $data['slug'] = Str::slug($data['title'], '-');
 
@@ -101,6 +105,50 @@ class ComicController extends Controller
     {
         $comic->delete();
 
-        return redirect()-> route('comics.index');
+        return redirect()-> route('comics.index')->with('deleted', "Il fumetto $comic->title è stato eliminato");
+    }
+
+    private function getUniqueSlug($title)
+    {
+        $slug = Str::slug($title, '-');
+
+        $existingCount = Comic::where('slug', 'like', $slug)->count();
+
+        if($existingCount)
+        {
+          return $slug . '-' . ($existingCount);
+        }else{
+            return $slug;
+        }
+
+        
+    }
+
+    private function validationData(){
+        return [
+            'title'=>'required|max:50|min:2',
+            'description'=>'required|min:5',
+            'image'=>'required|max:250',
+            'price'=>'required|numeric',
+            'series'=>'max:50',
+            'sale_date'=>'date',
+            'type'=>'max:50',
+        ];
+    }
+
+    private function validationErrors(){
+        return [
+            'title.required'=>'Il titolo è un campo obbligatiorio',
+            'title.max'=>'Il titolo non può avere più di :max caratteri',
+            'title.min'=>'Il titolo non può avere meno di :min caratteri',
+            'description.required'=>'La descrizione è obbligatioria',
+            'description.min'=>'La descrizione deve avere almeno :min caratteri',
+            'image.required'=>'L\'immagine è obbligatoria',
+            'price.required'=>'Il prezzo è obbligatorio',
+            'price.numeric'=>'Il prezzo deve essere un numero',
+            'series.max'=>'La serie non deve avere oltre :max caratteri',
+            'sale_date.date'=>'Inserire una data',
+            'type.max'=>'Inserire non oltre :max caratteri',
+        ];
     }
 }
