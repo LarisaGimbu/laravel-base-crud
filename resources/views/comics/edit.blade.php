@@ -4,36 +4,129 @@
   <div class="container">
     <h1>Modifica di: {{$comic->title}} </h1>
 
+    @if($errors->any())
+      <div class="alert alert-danger" role="alert">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
     <form action=" {{route('comics.update', $comic)}}" method="POST" >
       @csrf
       @method('PUT')
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Title</label>
-        <input type="text" value=" {{$comic->title}} " name="title" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Title">
+        <input 
+        type="text" 
+        value="{{old('title', $comic->title)}}  " 
+        name="title" 
+        class="form-control
+        @error('title') is-invalid @enderror" 
+        id="title" 
+        aria-describedby="emailHelp" 
+        placeholder="Title">
+
+        @error('title')
+        <p>{{$message}}</p>
+        @enderror
+
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Description</label>
-        <textarea type="text-area" name="description" class="form-control" id="description">{{$comic->description}} </textarea>
+        <textarea 
+        type="text-area" 
+        name="description" 
+        class="form-control
+        @error('description') is-invalid @enderror" 
+        id="description">{{old('description', $comic->description)}} </textarea>
+
+        @error('description')
+        <p>{{$message}}</p>
+        @enderror
+
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Image</label>
-        <input type="text" value=" {{$comic->image}} " name="image" class="form-control" id="image" placeholder="Image url">
+        <input 
+        type="text"
+        value=" {{old('image', $comic->image)}} " 
+        name="image" 
+        class="form-control
+        @error('image') is-invalid @enderror" 
+        id="image" 
+        placeholder="Image url">
+
+        @error('image')
+        <p>{{$message}}</p>
+        @enderror
+
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Price</label>
-        <input type="text" value=" {{$comic->price}} " name="price" class="form-control" id="price" placeholder="Price">
+        <input 
+        type="text" 
+        value=" {{old('price', $comic->price)}} " 
+        name="price" 
+        class="form-control
+        @error('price') is-invalid @enderror" 
+        id="price" 
+        placeholder="Price">
+
+        @error('price')
+        <p>{{$message}}</p>
+        @enderror
+
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Series</label>
-        <input type="text" name="series" value=" {{$comic->series}} " class="form-control" id="series" placeholder="Series">
+        <input 
+        type="text" 
+        name="series"
+        value=" {{old('series', $comic->series)}} " 
+        class="form-control
+        @error('series') is-invalid @enderror" 
+        id="series" 
+        placeholder="Series">
+
+        @error('series')
+        <p>{{$message}}</p>
+        @enderror
+
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Sale date</label>
-        <input type="text" value=" {{$comic->sale_date}} " name="sale_date" class="form-control" id="sale_date" placeholder="Sale date">
+        <input 
+        type="text" 
+        value=" {{old('sale_date', $comic->sale_date)}} " 
+        name="sale_date" 
+        class="form-control
+        @error('sale_date') is-invalid @enderror" 
+        id="sale_date" 
+        placeholder="Sale date">
+
+        @error('sale_date')
+        <p>{{$message}}</p>
+        @enderror
+
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Type</label>
-        <input type="text" value=" {{$comic->type}} " name="type" class="form-control" id="type" placeholder="Type">
+        <input 
+        type="text" 
+        value=" {{old('type', $comic->type)}} " 
+        name="type" 
+        class="form-control
+        @error('type') is-invalid @enderror" 
+        id="type" 
+        placeholder="Type">
+
+        @error('type')
+        <p>{{$message}}</p>
+        @enderror
+
       </div>
       
       <div class="button-container pb-4">
